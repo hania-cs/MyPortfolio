@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function AboutSection() {
   const [activeTab, setActiveTab] = useState('experiences')
@@ -107,15 +107,14 @@ const styles = {
     position: 'relative',
     zIndex: 1,
   },
-  
   title: {
     fontSize: '3rem',
-  marginBottom: '3rem',
-  textAlign: 'center',
-  color: '#ccd6f6',
-  textTransform: 'uppercase',
-  letterSpacing: '3px',
-  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+    marginBottom: '3rem',
+    textAlign: 'center',
+    color: '#ccd6f6',
+    textTransform: 'uppercase',
+    letterSpacing: '3px',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
   },
   tabContainer: {
     display: 'flex',
@@ -144,7 +143,7 @@ const styles = {
   },
   experienceGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
     gap: '20px',
   },
   timelineItem: {
@@ -169,10 +168,6 @@ const styles = {
     position: 'relative',
     borderRadius: '6px',
     transition: 'all 0.3s ease',
-    ':hover': {
-      transform: 'translateY(-5px)',
-      boxShadow: '0 4px 8px rgba(100, 255, 218, 0.2)',
-    },
   },
   itemTitle: {
     fontSize: '1.2rem',
@@ -203,37 +198,19 @@ const styles = {
     visibility: 'visible',
     zIndex: 0,
   },
-  '@keyframes fadeInDown': {
-    from: {
-      opacity: 0,
-      transform: 'translateY(-20px)',
+  '@media (max-width: 768px)': {
+    experienceGrid: {
+      gridTemplateColumns: '1fr',
     },
-    to: {
-      opacity: 1,
-      transform: 'translateY(0)',
+    content: {
+      padding: '30px',
     },
-  },
-  '@keyframes fadeInUp': {
-    from: {
-      opacity: 0,
-      transform: 'translateY(20px)',
+    title: {
+      fontSize: '2rem',
     },
-    to: {
-      opacity: 1,
-      transform: 'translateY(0)',
+    tabButton: {
+      fontSize: '0.9rem',
+      padding: '8px 15px',
     },
-  },
-  '@keyframes bg-animation': {
-    '0%': { transform: 'translate(0,0)' },
-    '10%': { transform: 'translate(-5%,-5%)' },
-    '20%': { transform: 'translate(-10%,5%)' },
-    '30%': { transform: 'translate(5%,-10%)' },
-    '40%': { transform: 'translate(-5%,15%)' },
-    '50%': { transform: 'translate(-10%,5%)' },
-    '60%': { transform: 'translate(15%,0)' },
-    '70%': { transform: 'translate(0,10%)' },
-    '80%': { transform: 'translate(-15%,0)' },
-    '90%': { transform: 'translate(10%,5%)' },
-    '100%': { transform: 'translate(5%,0)' },
   },
 }
