@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import '../index.css'
 
 export default function AboutSection() {
@@ -93,7 +93,6 @@ const styles = {
     minHeight: '100vh',
     backgroundColor: '#0a192f',
     color: '#8892b0',
-    
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
@@ -105,32 +104,33 @@ const styles = {
   content: {
     width: '100%',
     maxWidth: '1000px',
-    padding: '50px',
+    padding: '20px',
     position: 'relative',
     zIndex: 1,
   },
   title: {
-    fontSize: '3rem',
-    marginBottom: '3rem',
+    fontSize: '2rem',
+    marginBottom: '2rem',
     textAlign: 'center',
     color: '#ccd6f6',
     textTransform: 'uppercase',
-    letterSpacing: '3px',
+    letterSpacing: '2px',
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
     fontFamily: "'Roboto', sans-serif",
   },
   tabContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '30px',
+    marginBottom: '20px',
     animation: 'fadeInUp 0.6s ease-out',
+    flexWrap: 'wrap',
   },
   tabButton: {
     backgroundColor: 'transparent',
     border: 'none',
     color: '#8892b0',
-    fontSize: '1rem',
-    padding: '10px 20px',
+    fontSize: '0.9rem',
+    padding: '8px 12px',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     borderBottom: '2px solid transparent',
@@ -146,11 +146,11 @@ const styles = {
   },
   experienceGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '20px',
+    gridTemplateColumns: '1fr',
+    gap: '15px',
   },
   timelineItem: {
-    padding: '10px 20px',
+    padding: '10px',
     position: 'relative',
     background: 'inherit',
     width: '100%',
@@ -159,32 +159,32 @@ const styles = {
     transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
   },
   experienceItem: {
-    padding: '10px 20px',
+    padding: '10px',
   },
   fadeIn: {
     opacity: 1,
     transform: 'translateY(0)',
   },
   timelineContent: {
-    padding: '20px',
+    padding: '15px',
     background: 'rgba(100, 255, 218, 0.1)',
     position: 'relative',
     borderRadius: '6px',
     transition: 'all 0.3s ease',
   },
   itemTitle: {
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     color: '#ccd6f6',
     marginBottom: '5px',
   },
   itemSubtitle: {
-    fontSize: '0.9rem',
+    fontSize: '0.8rem',
     color: '#64ffda',
-    marginBottom: '10px',
+    marginBottom: '8px',
   },
   itemDescription: {
-    fontSize: '1rem',
-    lineHeight: '1.5',
+    fontSize: '0.9rem',
+    lineHeight: '1.4',
   },
   backgroundAnimation: {
     position: 'absolute',
@@ -200,20 +200,5 @@ const styles = {
     opacity: '.9',
     visibility: 'visible',
     zIndex: 0,
-  },
-  '@media (max-width: 768px)': {
-    experienceGrid: {
-      gridTemplateColumns: '1fr',
-    },
-    content: {
-      padding: '30px',
-    },
-    title: {
-      fontSize: '2rem',
-    },
-    tabButton: {
-      fontSize: '0.9rem',
-      padding: '8px 15px',
-    },
   },
 }
