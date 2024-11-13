@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-
+import '../index.css'
 export default function HomePage() {
   const [displayedText, setDisplayedText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
@@ -69,9 +69,9 @@ const styles = {
     height: '100vh',
     backgroundColor: '#0a192f',
     color: '#8892b0',
-    fontFamily: "'Roboto', sans-serif",
     overflow: 'hidden',
     position: 'relative',
+    fontFamily: "'Jaldi', sans-serif",
     
   },
   nav: {
@@ -115,6 +115,7 @@ const styles = {
     height: '58px', 
     display: 'flex',
     alignItems: 'center',
+
   },
   cursor: {
     display: 'inline-block',

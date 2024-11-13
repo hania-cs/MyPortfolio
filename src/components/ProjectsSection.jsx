@@ -4,6 +4,7 @@ import hizzekImage from '../assets/hizzekmizzek.png'
 import midnightImage from '../assets/midnight.png'
 import questImage from '../assets/quest.png'
 import cafeImage from '../assets/cafeamor.png'
+import '../index.css'
 
 export default function ProjectsSection() {
   const projects = [
@@ -76,7 +77,8 @@ export default function ProjectsSection() {
           min-height: 100vh;
           background-color: #0a192f;
           color: #8892b0;
-          font-family: 'Roboto', sans-serif;
+          font-family: 'Jaldi', sans-serif;
+
           overflow: hidden;
           position: relative;
           display: flex;
@@ -116,6 +118,7 @@ export default function ProjectsSection() {
           text-transform: uppercase;
           letter-spacing: 3px;
           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+          font-family: 'Roboto', sans-serif;
         }
 
         .projects-grid {

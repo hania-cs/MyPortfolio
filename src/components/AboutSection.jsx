@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import '../index.css'
 
 export default function AboutSection() {
   const [activeTab, setActiveTab] = useState('experiences')
@@ -92,13 +93,14 @@ const styles = {
     minHeight: '100vh',
     backgroundColor: '#0a192f',
     color: '#8892b0',
-    fontFamily: "'Roboto', sans-serif",
+    
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '10px 0',
+    fontFamily: "'Jaldi', sans-serif",
   },
   content: {
     width: '100%',
@@ -115,6 +117,7 @@ const styles = {
     textTransform: 'uppercase',
     letterSpacing: '3px',
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+    fontFamily: "'Roboto', sans-serif",
   },
   tabContainer: {
     display: 'flex',

@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from 'lucide-react'
+import '../index.css'
 
 export default function ContactSection() {
   return (
@@ -32,8 +33,7 @@ export default function ContactSection() {
           min-height: 100vh;
           background-color: #0a192f;
           color: #8892b0;
-          font-family: 'Roboto', sans-serif;
-          overflow: hidden;
+          font-family: 'Jaldi', sans-serif;
           position: relative;
           display: flex;
           align-items: center;
@@ -72,6 +72,7 @@ export default function ContactSection() {
           text-transform: uppercase;
           letter-spacing: 3px;
           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+          font-family: 'Roboto', sans-serif;
         }
 
         .contact-info {
