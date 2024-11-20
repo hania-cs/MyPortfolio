@@ -1,13 +1,23 @@
-import { useState, useEffect } from 'react'
-import '../index.css'
+import React, { useState, useEffect } from 'react'
+
+const InteractiveContainer = ({ children, onClick }) => {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <div 
+      className={`interactive-container ${isHovered ? 'hovered' : ''}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  )
+}
 
 export default function AboutSection() {
   const [activeTab, setActiveTab] = useState('experiences')
   const [animate, setAnimate] = useState(false)
-
-  useEffect(() => {
-    setAnimate(true)
-  }, [activeTab])
 
   const tabContent = {
     experiences: [
@@ -18,187 +28,182 @@ export default function AboutSection() {
     ],
     education: [
       { title: 'Bachelor of Science in Computer Engineering', institution: 'Universitat de Lleida - One Year ERASMUS+ Exchange Student', year: 'Aug 2024 - Aug 2025' },
-      { title: 'Bachelor of Science in Computer Science', institution: 'Modern University for Business and Sceince', year: '2022-2025' },
+      { title: 'Bachelor of Science in Computer Science', institution: 'Modern University for Business and Science', year: '2022-2025' },
     ],
     certifications: [
       { title: 'CS50X', issuer: 'Harvard University', year: 'Dec 2023' },
     ],
   }
 
+  useEffect(() => {
+    setAnimate(true)
+  }, [activeTab])
+
+  const handleContainerClick = (item) => {
+    console.log('Clicked item:', item)
+    // You can add more interactive functionality here
+  }
+
   return (
-    <div style={styles.container}>
-      <div style={styles.content}>
-        <h2 style={styles.title}>My Journey</h2>
-        <div style={styles.tabContainer}>
+    <div className="about-section">
+      <div className="content">
+        <h1 className="title">My Journey</h1>
+        <div className="tab-container">
           {Object.keys(tabContent).map((tab) => (
             <button
               key={tab}
-              style={{
-                ...styles.tabButton,
-                ...(activeTab === tab ? styles.activeTab : {}),
-              }}
-              onClick={() => {
-                setActiveTab(tab)
-                setAnimate(false)
-              }}
+              className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab)}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
         </div>
-        <div style={styles.timeline}>
-          {activeTab === 'experiences' ? (
-            <div style={styles.experienceGrid}>
-              {tabContent[activeTab].map((item, index) => (
-                <div key={index} style={{
-                  ...styles.timelineItem,
-                  ...styles.experienceItem,
-                  animationDelay: `${index * 0.1}s`,
-                  ...(animate ? styles.fadeIn : {}),
-                }}>
-                  <div style={styles.timelineContent}>
-                    <h3 style={styles.itemTitle}>{item.title}</h3>
-                    <p style={styles.itemSubtitle}>{item.company} | {item.period}</p>
-                    <p style={styles.itemDescription}>{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            tabContent[activeTab].map((item, index) => (
-              <div key={index} style={{
-                ...styles.timelineItem,
-                animationDelay: `${index * 0.1}s`,
-                ...(animate ? styles.fadeIn : {}),
-              }}>
-                <div style={styles.timelineContent}>
-                  <h3 style={styles.itemTitle}>{item.title}</h3>
-                  <p style={styles.itemSubtitle}>
+        <div className="tab-content">
+          {tabContent[activeTab].map((item, index) => (
+            <InteractiveContainer key={index} onClick={() => handleContainerClick(item)}>
+              <div className={`timeline-item ${animate ? 'fade-in' : ''}`} style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="timeline-content">
+                  <h2 className="item-title">{item.title}</h2>
+                  <p className="item-subtitle">
+                    {activeTab === 'experiences' && `${item.company} | ${item.period}`}
                     {activeTab === 'education' && `${item.institution} | ${item.year}`}
                     {activeTab === 'certifications' && `${item.issuer} | ${item.year}`}
                   </p>
+                  {activeTab === 'experiences' && <p className="item-description">{item.description}</p>}
                 </div>
               </div>
-            ))
-          )}
+            </InteractiveContainer>
+          ))}
         </div>
       </div>
-      <div style={styles.backgroundAnimation}></div>
+      <style jsx>{`
+        .about-section {
+          min-height: 100vh;
+          font-family: 'Jaldi', sans-serif;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .content {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 2rem;
+          position: relative;
+          z-index: 1;
+        }
+
+        .title {
+          font-size: 3rem;
+          margin-bottom: 2rem;
+          text-align: center;
+          color: #ccd6f6;
+        }
+
+        .tab-container {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2rem;
+        }
+
+        .tab-button {
+          background-color: transparent;
+          border: none;
+          color: #8892b0;
+          font-size: 1rem;
+          padding: 0.5rem 1rem;
+          margin: 0 0.5rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+          color: #64ffda;
+          border-bottom: 2px solid #64ffda;
+        }
+
+        .tab-content {
+          width: 100%;
+          max-width: 800px;
+        }
+
+        .interactive-container {
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .interactive-container.hovered {
+          transform: translateY(-5px);
+          box-shadow: 0 4px 10px rgba(100, 255, 218, 0.2);
+        }
+
+        .timeline-item {
+          opacity: 0;
+          transform: translateY(20px);
+          margin-bottom: 1.5rem;
+        }
+
+        .fade-in {
+          animation: fadeInUp 0.5s forwards;
+        }
+
+        .timeline-content {
+          background-color: rgba(100, 255, 218, 0.1);
+          padding: 1.5rem;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+        }
+
+        .item-title {
+          font-size: 1.4rem;
+          color: #64ffda;
+          margin-bottom: 0.5rem;
+        }
+
+        .item-subtitle {
+          font-size: 1rem;
+          color: #ccd6f6;
+          margin-bottom: 1rem;
+        }
+
+        .item-description {
+          font-size: 0.9rem;
+          line-height: 1.6;
+        }
+
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .title {
+            font-size: 2.5rem;
+          }
+
+          .tab-button {
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+          }
+
+          .item-title {
+            font-size: 1.2rem;
+          }
+
+          .item-subtitle {
+            font-size: 0.9rem;
+          }
+
+          .item-description {
+            font-size: 0.8rem;
+          }
+        }
+      `}</style>
     </div>
   )
-}
-
-const styles = {
-  container: {
-    minHeight: '100vh',
-    backgroundColor: '#0a192f',
-    color: '#8892b0',
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '10px 0',
-    fontFamily: "'Jaldi', sans-serif",
-  },
-  content: {
-    width: '100%',
-    maxWidth: '1000px',
-    padding: '20px',
-    position: 'relative',
-    zIndex: 1,
-  },
-  title: {
-    fontSize: '2rem',
-    marginBottom: '2rem',
-    textAlign: 'center',
-    color: '#ccd6f6',
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-    fontFamily: "'Roboto', sans-serif",
-  },
-  tabContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: '20px',
-    animation: 'fadeInUp 0.6s ease-out',
-    flexWrap: 'wrap',
-  },
-  tabButton: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    color: '#8892b0',
-    fontSize: '0.9rem',
-    padding: '8px 12px',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    borderBottom: '2px solid transparent',
-  },
-  activeTab: {
-    color: '#64ffda',
-    borderBottom: '2px solid #64ffda',
-  },
-  timeline: {
-    position: 'relative',
-    maxWidth: '1000px',
-    margin: '0 auto',
-  },
-  experienceGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr',
-    gap: '15px',
-  },
-  timelineItem: {
-    padding: '10px',
-    position: 'relative',
-    background: 'inherit',
-    width: '100%',
-    opacity: 0,
-    transform: 'translateY(20px)',
-    transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
-  },
-  experienceItem: {
-    padding: '10px',
-  },
-  fadeIn: {
-    opacity: 1,
-    transform: 'translateY(0)',
-  },
-  timelineContent: {
-    padding: '15px',
-    background: 'rgba(100, 255, 218, 0.1)',
-    position: 'relative',
-    borderRadius: '6px',
-    transition: 'all 0.3s ease',
-  },
-  itemTitle: {
-    fontSize: '1.1rem',
-    color: '#ccd6f6',
-    marginBottom: '5px',
-  },
-  itemSubtitle: {
-    fontSize: '0.8rem',
-    color: '#64ffda',
-    marginBottom: '8px',
-  },
-  itemDescription: {
-    fontSize: '0.9rem',
-    lineHeight: '1.4',
-  },
-  backgroundAnimation: {
-    position: 'absolute',
-    top: '-50%',
-    left: '-50%',
-    right: '-50%',
-    bottom: '-50%',
-    width: '200%',
-    height: '200%',
-    background: 'transparent url("http://assets.iceable.com/img/noise-transparent.png") repeat 0 0',
-    backgroundRepeat: 'repeat',
-    animation: 'bg-animation .2s infinite',
-    opacity: '.9',
-    visibility: 'visible',
-    zIndex: 0,
-  },
 }

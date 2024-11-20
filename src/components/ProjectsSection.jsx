@@ -1,258 +1,206 @@
-import { Github, ExternalLink } from 'lucide-react'
-import locavoImage from '../assets/locavo.png'
-import hizzekImage from '../assets/hizzekmizzek.png'
-import midnightImage from '../assets/midnight.png'
-import questImage from '../assets/quest.png'
-import cafeImage from '../assets/cafeamor.png'
-import '../index.css'
+import React, { useState } from 'react'
+import { GithubIcon, ExternalLink } from 'lucide-react'
+
+const ProjectCard = ({ project }) => {
+  const [isFlipped, setIsFlipped] = useState(false)
+
+  return (
+    <div 
+      className="project-card"
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+    >
+      <div className={`card-inner ${isFlipped ? 'flipped' : ''}`}>
+        <div className="card-front">
+          <img src={project.image} alt={project.title} className="project-image" />
+          <h3 className="project-title">{project.title}</h3>
+        </div>
+        <div className="card-back">
+          <h3 className="project-title">{project.title}</h3>
+          <p className="project-description">{project.description}</p>
+          <div className="project-links">
+            <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link">
+              <GithubIcon size={24} />
+              <span>GitHub</span>
+            </a>
+            <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-link">
+              <ExternalLink size={24} />
+              <span>Demo</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function ProjectsSection() {
   const projects = [
-    { 
-      id: 1, 
-      title: 'CafeAmor', 
-      image: cafeImage, 
-      demoUrl: 'https://cafe-amor.vercel.app/',
-      githubUrl: 'https://github.com/hania-cs/CafeAmor'
+    {
+      title: "CafeAmor",
+      description: "A simple coffee shop website built with React",
+      image: "./assets/cafeamor.png",
+      github: "https://github.com/hania-cs/CafeAmor",
+      demo: "https://cafe-amor.vercel.app/"
     },
-    { 
-      id: 2, 
-      title: 'HezzikMezzik', 
-      image: hizzekImage,
-      demoUrl: 'https://hezzikmezzik.com/',
+    {
+      title: "Locavo",
+      description: "An ongoing school project built with React",
+      image: "./assets/locavo.png",
+      github: "https://github.com/hania-cs/Locavo-Frontend",
+      demo: "https://hania-cs.github.io/Locavo-Frontend/"
     },
-    { 
-      id: 3, 
-      title: 'Midnight Fragrance', 
-      image: midnightImage,
-      demoUrl: 'https://fragrance.sheefra.company/',
+    {
+      title: "PicQuest",
+      description: "A Pinterest clone",
+      image: "./assets/quest.png",
+      github: "https://github.com/yourusername/project3",
+      demo: "https://project3-demo.com"
     },
-    { 
-      id: 4, 
-      title: 'PicQuest', 
-      image: questImage,
-      demoUrl: 'https://hania-cs.github.io/PicQuest/',
-      githubUrl: 'https://github.com/hania-cs/PicQuest'
+    {
+      title: "HizzekMizzek",
+      description: "WordPress Ecommerce Website with DHL integration",
+      image: "./assets/hizzekmizzek.png",
+      
+      demo: "https://hezzikmezzik.com/"
     },
-    { 
-      id: 5, 
-      title: 'Locavo', 
-      image: locavoImage,
-      demoUrl: 'https://hania-cs.github.io/Locavo-Frontend/',
-      githubUrl: 'https://github.com/hania-cs/Locavo-Frontend'
+    {
+      title: "Midnight Fragrance",
+      description: "WordPress Ecommerce Website",
+      image: "./assets/midnight.png",
+      demo: "https://fragrance.sheefra.company/"
     },
+    
   ]
 
   return (
-    <section className="projects-section">
-      <div className="content-wrapper">
-        <h2 className="section-title">My Projects</h2>
-        <div className="projects-grid">
-          {projects.map((project) => (
-            <div key={project.id} className="project-card">
-              <img src={project.image} alt={project.title} className="project-image" />
-              <div className="project-overlay">
-                <h3 className="project-title">{project.title}</h3>
-                <div className="project-buttons">
-                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="project-button demo-button">
-                    <ExternalLink size={16} />
-                    View Demo
-                  </a>
-                  {project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="project-button github-button">
-                      <Github size={16} />
-                      View GitHub
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <a href="https://github.com/hania-cs" target="_blank" rel="noopener noreferrer" className="view-more-link">
-          View My GitHub
-        </a>
+    <div className="projects-section">
+      <h1 className="section-title">My Projects</h1>
+      <div className="projects-grid">
+        {projects.map((project, index) => (
+          <ProjectCard key={index} project={project} />
+        ))}
       </div>
-
       <style jsx>{`
         .projects-section {
           min-height: 100vh;
-          background-color: #0a192f;
-          color: #8892b0;
-          font-family: 'Jaldi', sans-serif;
-          overflow: hidden;
-          position: relative;
+          padding: 4rem 2rem;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: center;
-          padding: 20px 0;
-        }
-
-        .projects-section::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          width: 100%;
-          height: 100%;
-          background: transparent url("http://assets.iceable.com/img/noise-transparent.png") repeat 0 0;
-          opacity: .9;
-          visibility: visible;
-          z-index: 0;
-        }
-
-        .content-wrapper {
-          width: 100%;
-          max-width: 1200px;
-          padding: 20px;
-          position: relative;
-          z-index: 1;
+          font-family: 'Jaldi', sans-serif;
         }
 
         .section-title {
-          font-size: 2.5rem;
+          font-size: 3rem;
           margin-bottom: 2rem;
-          text-align: center;
           color: #ccd6f6;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-          font-family: 'Roboto', sans-serif;
+          text-align: center;
         }
 
         .projects-grid {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-          margin-bottom: 2rem;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+          width: 100%;
+          max-width: 1200px;
         }
 
         .project-card {
-          position: relative;
+          background-color: rgba(100, 255, 218, 0.1);
+          border-radius: 10px;
           overflow: hidden;
-          border-radius: 8px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          perspective: 1000px;
+          height: 300px;
+        }
+
+        .card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          transition: transform 0.6s;
+          transform-style: preserve-3d;
+        }
+
+        .card-inner.flipped {
+          transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 1rem;
+        }
+
+        .card-back {
+          background-color: rgba(100, 255, 218, 0.2);
+          transform: rotateY(180deg);
         }
 
         .project-image {
           width: 100%;
-          height: 180px;
+          height: 200px;
           object-fit: cover;
-          transition: filter 0.3s ease;
-        }
-
-        .project-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .project-card:hover .project-overlay,
-        .project-card:active .project-overlay {
-          opacity: 1;
         }
 
         .project-title {
-          color: #ffffff;
-          font-size: 1.25rem;
-          margin-bottom: 0.75rem;
-          text-align: center;
-          padding: 0 10px;
-        }
-
-        .project-buttons {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-          padding: 0 10px;
-          width: 100%;
-          align-items: center;
-        }
-
-        .project-button {
-          padding: 0.4rem 0.8rem;
-          border: 1px solid #64ffda;
-          border-radius: 4px;
-          font-size: 0.85rem;
-          font-weight: bold;
-          cursor: pointer;
-          transition: background-color 0.3s ease;
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-          text-decoration: none;
-          width: auto;
-          min-width: 120px;
-          justify-content: center;
-        }
-
-        .demo-button,
-        .github-button {
-          background-color: transparent;
-          color: #ffffff;
-        }
-
-        .project-button:hover,
-        .project-button:active {
-          background: rgba(100, 255, 218, 0.1);
-        }
-
-        .view-more-link {
-          display: block;
-          text-align: center;
+          font-size: 1.5rem;
+          margin: 1rem 0;
           color: #64ffda;
-          font-size: 0.9rem;
+        }
+
+        .project-description {
+          font-size: 1rem;
+          color: #8892b0;
+          margin-bottom: 1rem;
+        }
+
+        .project-links {
+          display: flex;
+          justify-content: space-around;
+          width: 100%;
+        }
+
+        .project-link {
+          display: flex;
+          align-items: center;
+          color: #64ffda;
           text-decoration: none;
-          padding: 0.5rem 1rem;
-          border-radius: 8px;
-          border: 1px solid #64ffda;
-          transition: background-color 0.3s ease;
-          width: max-content;
-          margin: 0 auto;
+          transition: color 0.3s ease;
         }
 
-        .view-more-link:hover,
-        .view-more-link:active {
-          background: rgba(100, 255, 218, 0.1);
+        .project-link:hover {
+          color: #ccd6f6;
         }
 
-        @media (min-width: 768px) {
-          .content-wrapper {
-            padding: 50px;
-          }
+        .project-link span {
+          margin-left: 0.5rem;
+        }
 
+        @media (max-width: 1024px) {
           .projects-grid {
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr);
           }
+        }
 
-          .project-buttons {
-            flex-direction: row;
-            justify-content: center;
+        @media (max-width: 768px) {
+          .projects-grid {
+            grid-template-columns: 1fr;
           }
 
           .section-title {
-            font-size: 3rem;
-            letter-spacing: 3px;
-          }
-
-          .project-image {
-            height: 200px;
+            font-size: 2.5rem;
           }
         }
       `}</style>
-    </section>
+    </div>
   )
 }
