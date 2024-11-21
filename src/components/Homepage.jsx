@@ -17,7 +17,7 @@ export default function Home({ theme }) {
     }
   }
 
-  const currentTheme = themeColors[theme] || themeColors.dark // Fallback to dark theme if theme is undefined
+  const currentTheme = themeColors[theme] || themeColors.dark 
 
   return (
     <div className="container" style={{ 
@@ -64,9 +64,11 @@ export default function Home({ theme }) {
         }}>
           Frontend developer fueled by coffee and code, crafting clean interfaces as smooth as a perfect espresso shot.
         </p>
+        <a href="#projects">
         <button style={{
           backgroundColor: 'transparent',
           border: `2px solid ${currentTheme.accent}`,
+          borderRadius: '20px',
           color: currentTheme.accent,
           padding: '0.75rem 1.5rem',
           fontSize: '1rem',
@@ -76,6 +78,7 @@ export default function Home({ theme }) {
         }}>
           Explore My Work
         </button>
+        </a>
       </div>
     </div>
   )

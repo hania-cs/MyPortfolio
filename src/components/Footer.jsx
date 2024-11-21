@@ -8,13 +8,13 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="social-links">
-          <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/hania-seif/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <LinkedinIcon size={24} />
           </a>
-          <a href="mailto:your.email@example.com" aria-label="Email">
+          <a href="mailto:haniacs05@gmail.com" aria-label="Email">
             <MailIcon size={24} />
           </a>
-          <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <a href="https://github.com/hania-cs" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <GithubIcon size={24} />
           </a>
         </div>

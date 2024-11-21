@@ -43,7 +43,7 @@ function App() {
       accent: '#64ffda',
     },
     light: {
-      background: '#f0f0f0',
+      background: '#f0f4f8',
       text: '#333333',
       accent: '#0a192f',
     }

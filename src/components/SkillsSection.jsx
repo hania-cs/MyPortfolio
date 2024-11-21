@@ -52,12 +52,12 @@ const SkillsSection = ({ theme }) => {
   const currentTheme = themeColors[theme] || themeColors.dark
 
   const skills = [
-    { name: 'React', level: 90 },
+    { name: 'React', level: 80 },
     { name: 'JavaScript', level: 85 },
-    { name: 'CSS', level: 80 },
+    { name: 'CSS', level: 90 },
     { name: 'HTML', level: 95 },
-    { name: 'Node.js', level: 75 },
-    { name: 'Three.js', level: 70 },
+    { name: 'WordPress', level: 75 },
+    { name: 'Three.js', level: 30 },
   ]
 
   return (
