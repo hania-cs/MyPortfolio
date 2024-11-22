@@ -1,23 +1,15 @@
 import React from 'react'
 import { TypeAnimation } from 'react-type-animation'
 
-export default function Home({ theme }) {
+export default function Home() {
   const themeColors = {
-    dark: {
-      background: '#0a192f',
-      text: '#ccd6f6',
-      accent: '#64ffda',
-      secondaryText: '#8892b0',
-    },
-    light: {
-      background: '#f0f0f0',
-      text: '#333333',
-      accent: '#0a192f',
-      secondaryText: '#555555',
-    }
+    background: '#0a192f',
+    text: '#ccd6f6',
+    accent: '#64ffda',
+    secondaryText: '#8892b0',
   }
 
-  const currentTheme = themeColors[theme] || themeColors.dark 
+  const currentTheme = themeColors
 
   return (
     <div className="container" style={{ 
@@ -64,11 +56,9 @@ export default function Home({ theme }) {
         }}>
           Frontend developer fueled by coffee and code, crafting clean interfaces as smooth as a perfect espresso shot.
         </p>
-        <a href="#projects">
         <button style={{
           backgroundColor: 'transparent',
           border: `2px solid ${currentTheme.accent}`,
-          borderRadius: '20px',
           color: currentTheme.accent,
           padding: '0.75rem 1.5rem',
           fontSize: '1rem',
@@ -78,7 +68,6 @@ export default function Home({ theme }) {
         }}>
           Explore My Work
         </button>
-        </a>
       </div>
     </div>
   )

@@ -54,14 +54,13 @@ export default function ProjectsSection() {
       title: "PicQuest",
       description: "A Pinterest clone",
       image: "./assets/quest.png",
-      github: "https://github.com/yourusername/project3",
-      demo: "https://project3-demo.com"
+      github: "https://github.com/hania-cs/PicQuest",
+      demo: "https://hania-cs.github.io/PicQuest/"
     },
     {
       title: "HizzekMizzek",
       description: "WordPress Ecommerce Website with DHL integration",
       image: "./assets/hizzekmizzek.png",
-      
       demo: "https://hezzikmezzik.com/"
     },
     {
@@ -70,7 +69,6 @@ export default function ProjectsSection() {
       image: "./assets/midnight.png",
       demo: "https://fragrance.sheefra.company/"
     },
-    
   ]
 
   return (

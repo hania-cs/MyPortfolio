@@ -39,10 +39,7 @@ export default function AboutSection() {
     setAnimate(true)
   }, [activeTab])
 
-  const handleContainerClick = (item) => {
-    console.log('Clicked item:', item)
-    // You can add more interactive functionality here
-  }
+
 
   return (
     <div className="about-section">

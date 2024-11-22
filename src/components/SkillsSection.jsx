@@ -35,21 +35,14 @@ const Skill = ({ name, level }) => {
   )
 }
 
-const SkillsSection = ({ theme }) => {
+const SkillsSection = () => {
   const themeColors = {
-    dark: {
-      background: '#0a192f',
-      text: '#ccd6f6',
-      accent: '#64ffda',
-    },
-    light: {
-      background: '#f0f0f0',
-      text: '#333333',
-      accent: '#0a192f',
-    }
+    background: '#0a192f',
+    text: '#ccd6f6',
+    accent: '#64ffda',
   }
 
-  const currentTheme = themeColors[theme] || themeColors.dark
+  const currentTheme = themeColors
 
   const skills = [
     { name: 'React', level: 80 },
