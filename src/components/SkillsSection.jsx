@@ -60,14 +60,14 @@ const SkillsSection = () => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: '2rem',
+      padding: '1rem',
       color: currentTheme.text,
       transition: 'color 0.3s ease',
     }}>
       <h2 style={{
         fontSize: '3rem',
         marginBottom: '2rem',
-        color: currentTheme.accent,
+        color: currentTheme.text,
       }}>
         My Skills
       </h2>
