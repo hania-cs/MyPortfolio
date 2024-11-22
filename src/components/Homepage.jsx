@@ -59,6 +59,7 @@ export default function Home() {
         <button style={{
           backgroundColor: 'transparent',
           border: `2px solid ${currentTheme.accent}`,
+          borderRadius: '10px',
           color: currentTheme.accent,
           padding: '0.75rem 1.5rem',
           fontSize: '1rem',
