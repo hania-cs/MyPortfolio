@@ -56,19 +56,23 @@ export default function Home() {
         }}>
           Frontend developer fueled by coffee and code, crafting clean interfaces as smooth as a perfect espresso shot.
         </p>
-        <button style={{
-          backgroundColor: 'transparent',
-          border: `2px solid ${currentTheme.accent}`,
-          borderRadius: '10px',
-          color: currentTheme.accent,
-          padding: '0.75rem 1.5rem',
-          fontSize: '1rem',
-          cursor: 'pointer',
-          transition: 'background-color 0.3s ease, color 0.3s ease',
-          marginTop: '2rem',
-        }}>
-          Explore My Work
-        </button>
+        <button
+  style={{
+    backgroundColor: 'transparent',
+    border: `2px solid ${currentTheme.accent}`,
+    borderRadius: '10px',
+    color: currentTheme.accent,
+    padding: '0.75rem 1.5rem',
+    fontSize: '1rem',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease, color 0.3s ease',
+    marginTop: '2rem',
+  }}
+  onClick={() => document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' })}
+>
+  Explore My Work
+</button>
+
       </div>
     </div>
   )

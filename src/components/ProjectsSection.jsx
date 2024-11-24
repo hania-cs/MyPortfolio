@@ -72,7 +72,7 @@ export default function ProjectsSection() {
   ]
 
   return (
-    <div className="projects-section">
+    <div id="projects-section" className="projects-section">
       <h1 className="section-title">My Projects</h1>
       <div className="projects-grid">
         {projects.map((project, index) => (
