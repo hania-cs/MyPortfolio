@@ -37,6 +37,13 @@ const ProjectCard = ({ project }) => {
 export default function ProjectsSection() {
   const projects = [
     {
+      title: "JingleJings",
+      description: "A one page website built for a small business in Brazil, built with React",
+      image: "./assets/jingle.png",
+      github: "https://github.com/hania-cs/JingleGings",
+      demo: "https://jingle-gings.vercel.app/"
+    },
+    {
       title: "CafeAmor",
       description: "A simple coffee shop website built with React",
       image: "./assets/cafeamor.png",
@@ -48,7 +55,7 @@ export default function ProjectsSection() {
       description: "An ongoing school project built with React",
       image: "./assets/locavo.png",
       github: "https://github.com/hania-cs/Locavo-Frontend",
-      demo: "https://hania-cs.github.io/Locavo-Frontend/"
+      demo: "https://locavo-frontend.vercel.app/"
     },
     {
       title: "PicQuest",
