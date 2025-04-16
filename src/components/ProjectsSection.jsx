@@ -37,11 +37,25 @@ const ProjectCard = ({ project }) => {
 export default function ProjectsSection() {
   const projects = [
     {
+      title: "Daisy",
+      description: "A Next.js & TypeScript-based PWA combining a journal, task manager, AI coach, and mood tracker to boost productivity and wellbeing — currently under development for a school project, with UI fully designed by me in Figma.",
+      image: "./assets/image.png",
+      github: "https://github.com/jordigarciaventura/wellsphere",
+      demo: "https://wellsphere.vercel.app/en"
+    },
+
+    {
       title: "JingleJings",
       description: "A one page website built for a small business in Brazil, built with React",
       image: "./assets/jingle.png",
       github: "https://github.com/hania-cs/JingleGings",
       demo: "https://jingle-gings.vercel.app/"
+    },
+    {
+      title: "BlossomBloomClinic",
+      description: "Implemented a client-provided design into a fully responsive WordPress website with mobile support.",
+      image: "./assets/bb.png",
+      demo: "https://bnbclinics.com/"
     },
     {
       title: "CafeAmor",
