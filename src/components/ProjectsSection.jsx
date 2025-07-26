@@ -38,7 +38,7 @@ export default function ProjectsSection() {
   const projects = [
      {
       title: "Manuela Frierre Portfolio",
-      description: "A Next.js & TypeScript-based PWA combining a journal, task manager, AI coach, and mood tracker to boost productivity and wellbeing — currently under development for a school project, with UI fully designed by me in Figma.",
+      description: "Built a responsive and visually appealing personal portfolio website using React for a psychology student. The site highlights academic achievements, research interests, skills, and contact information, helping the student professionally showcase their background and projects. Focused on clean design, intuitive navigation, and mobile-friendly layout to create an engaging user experience tailored for an academic profile.",
       image: "./assets/manu.png",
       github: "https://github.com/hania-cs/ManuelaPortfolio",
       demo: "https://manuelaportfolio.vercel.app/"
