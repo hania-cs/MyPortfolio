@@ -36,6 +36,13 @@ const ProjectCard = ({ project }) => {
 
 export default function ProjectsSection() {
   const projects = [
+     {
+      title: "Manuela Frierre Portfolio",
+      description: "A Next.js & TypeScript-based PWA combining a journal, task manager, AI coach, and mood tracker to boost productivity and wellbeing — currently under development for a school project, with UI fully designed by me in Figma.",
+      image: "./assets/manu.png",
+      github: "https://github.com/hania-cs/ManuelaPortfolio",
+      demo: "https://manuelaportfolio.vercel.app/"
+    },
     {
       title: "Daisy",
       description: "A Next.js & TypeScript-based PWA combining a journal, task manager, AI coach, and mood tracker to boost productivity and wellbeing — currently under development for a school project, with UI fully designed by me in Figma.",
