@@ -38,7 +38,7 @@ export default function ProjectsSection() {
   const projects = [
      {
       title: "Manuela Frierre Portfolio",
-      description: "Built a responsive and visually appealing personal portfolio website using React for a psychology student. The site highlights academic achievements, research interests, skills, and contact information, helping the student professionally showcase their background and projects. Focused on clean design, intuitive navigation, and mobile-friendly layout to create an engaging user experience tailored for an academic profile.",
+      description: "Created a responsive React portfolio to showcase a psychology student’s skills, research, and achievements with a clean and user-friendly design.",
       image: "./assets/manu.png",
       github: "https://github.com/hania-cs/ManuelaPortfolio",
       demo: "https://manuelaportfolio.vercel.app/"
