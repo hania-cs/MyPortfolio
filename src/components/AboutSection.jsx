@@ -1,14 +1,38 @@
-import React, { useState, useEffect } from 'react'
+"use client"
 
-const InteractiveContainer = ({ children, onClick }) => {
+import { useState, useEffect, useRef } from "react"
+
+const MagneticCard = ({ children, index }) => {
+  const cardRef = useRef(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
 
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const centerX = rect.left + rect.width / 2
+    const centerY = rect.top + rect.height / 2
+    const deltaX = (e.clientX - centerX) * 0.1
+    const deltaY = (e.clientY - centerY) * 0.1
+    setMousePosition({ x: deltaX, y: deltaY })
+  }
+
+  const handleMouseLeave = () => {
+    setMousePosition({ x: 0, y: 0 })
+    setIsHovered(false)
+  }
+
   return (
-    <div 
-      className={`interactive-container ${isHovered ? 'hovered' : ''}`}
+    <div
+      ref={cardRef}
+      className={`magnetic-card ${isHovered ? "hovered" : ""}`}
+      onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: `translate(${mousePosition.x}px, ${mousePosition.y}px) scale(${isHovered ? 1.05 : 1})`,
+        animationDelay: `${index * 0.1}s`,
+      }}
     >
       {children}
     </div>
@@ -16,69 +40,125 @@ const InteractiveContainer = ({ children, onClick }) => {
 }
 
 export default function AboutSection() {
-  const [activeTab, setActiveTab] = useState('experiences')
+  const [activeFilter, setActiveFilter] = useState("all")
   const [animate, setAnimate] = useState(false)
 
-  const tabContent = {
-    experiences: [
+  const allItems = [
+     {
+      type: "experience",
+      title: "WordPress Web Developer",
+      company: "Freelance – Reporting to Project Manager & SEO Specialist",
+      period: "Apr 2025 - Present",
+      description:
+        "I develop and customize WordPress websites and eCommerce stores for various companies. I translate project requirements from the project manager into responsive, optimized sites and implement themes, plugins, and custom features to meet client branding and functionality needs. Additionally, I manage technical development, deployment, and performance optimization to ensure high-quality, efficient websites.",
+    },
+    {
+      type: "experience",
+      title: "Web Developer Intern",
+      company: "OctoVertex",
+      period: "Dec 2024 - May 2025",
+      description:
+        "I engaged with clients to gather requirements and deliver tailored technical solutions, ensuring their needs were fully understood and met. Collaborating closely with UI/UX designers, I transformed concepts into intuitive and visually appealing interfaces that enhanced user experience. Additionally, I built responsive web applications using React, WordPress, and PHP, combining functionality with modern design to create seamless digital solutions.",
+    },
+    {
+      type: "experience",
+      title: "WordPress Developer Intern",
+      company: "Sheefra",
+      period: "May 2024 - May 2025",
+      description:
+        "I developed and customized three WordPress websites for diverse clients, including two eCommerce stores and one business site. I built an eCommerce perfume website with a strong focus on product display and smooth shopping functionality. For HizzekMizzek, a local Lebanese business, I created a user-friendly online store that reflected their brand identity. I also collaborated with senior developers to diagnose and fix frontend issues on a third WordPress website, enhancing both performance and usability. Across all projects, I optimized website speed and maintained visual consistency to deliver an improved user experience.",
+    },
+    {
+      type: "experience",
+      title: "Frontend Developer",
+      company: "ThePixelCompany",
+      period: "Aug 2024 - Oct 2024",
+      description:
+        "I collaborated with clients under NDA to gather requirements, clarify their vision, and deliver tailored technical solutions. I partnered closely with UI/UX designers to transform protected design concepts into functional, polished interfaces. Additionally, I built responsive web applications using React and occasionally vanilla JavaScript for advanced interactivity, ensuring seamless compatibility across devices.",
+    },
+    {
+      type: "experience",
+      title: "Laravel Developer Intern",
+      company: "InfinityLab",
+      period: "Jul 2024 - Aug 2024",
+      description:
+        "I assisted senior developers with coding, testing, and debugging while learning best practices and code review processes. I collaborated with senior developers to build a comprehensive school management system for private schools in Lebanon, focusing on backend development using Laravel and seamless integration of an AI system to assist students. I implemented features such as a chatbot, AI-powered quiz generator, AI grading, and performance review, and integrated the Laravel backend with a Flutter-based frontend to ensure a smooth, user-friendly experience.",
+    },
+    {
+      type: "experience",
+      title: "React Developer Intern",
+      company: "YAFA Cloud Services LLC",
+      period: "Apr 2024 - Oct 2024",
+      description:
+        "I utilized React.js and TypeScript to develop and maintain interactive user interfaces for the company's website. I collaborated with design and backend teams to ensure seamless integration of frontend components and implemented responsive design principles to enhance user experience across various devices and screen sizes. I conducted code reviews and participated in Agile development processes to deliver high-quality software solutions. I worked closely with senior developers to troubleshoot and debug frontend issues, ensuring optimal performance and functionality. Additionally, I worked on a blogging system for the company's website, focusing on the frontend using React, TypeScript, and Material-UI.",
+    },
+    {
+      type: "education",
+      title: "Bachelor of Science in Computer Engineering",
+      company: "Universitat de Lleida",
+      period: "Aug 2024 - Aug 2025",
+      description: "ERASMUS+ Exchange Student program focusing on advanced computer engineering concepts.",
+    },
+    {
+      type: "education",
+      title: "Bachelor of Science in Computer Science",
+      company: "Modern University for Business and Science",
+      period: "2022-2025",
+      description: "Comprehensive computer science program with focus on modern development practices.",
+    },
+    {
+      type: "certification",
+      title: "CS50X",
+      company: "Harvard University",
+      period: "Dec 2023",
+      description:
+        "Completed Harvard's introduction to computer science covering algorithms, data structures, and programming.",
+    },
+  ]
 
-      { title: 'Web Developer Intern', company: 'OctoVertex', period: 'Dec 2024 - Present', description: 'As a Web Dveloper Intern at OctoVertexDeveloped and launched a responsive WordPress website for a medical clinic (BlossomBloom) based on client-provided designs, under direct mentorship from the company founder., I have worked on several WordPress projects, contributing to the development and management of websites. I took full responsibility for one WordPress project, working on it from start to finish, ensuring all aspects were handled with care and attention to detail. Currently working on another Laravel project.' },
-      
-
-      { title: 'WordPress Developer Intern', company: 'Sheefra', period: 'May 2024 - Present', description: 'As a WordPress Intern at Sheefra, I have worked on several WordPress projects, contributing to the development and management of websites. I took full responsibility for one WordPress project, working on it from start to finish, ensuring all aspects were handled with care and attention to detail. In addition, I collaborated with a fellow intern on another project, which is still under construction, and assisted my senior team members on two other ongoing projects. This role has allowed me to gain hands-on experience in WordPress development, including design, plugin integration, and website maintenance.' },
-      { title: 'Frontend Developer', company: 'ThePixelCompany', period: 'Aug 2024 - Oct 2024', description: 'As a Junior Front-End Developer, I was responsible for collaborating with UI/UX designers to turn design concepts into functional, user-friendly interfaces. I developed responsive web applications using React and JavaScript, ensuring that applications were interactive and optimized for various devices. My role also involved integrating front-end components with backend systems to ensure smooth data flow and application functionality.' },
-      
-      { title: 'Laravel Developer Intern', company: 'InfinityLab', period: 'Jul 2024 - Aug 2024', description: 'As a Laravel developer intern, I primarily assisted senior developers with various tasks. I was responsible for supporting them in less complex coding, testing, and debugging activities. This included helping with the design and development phases while ensuring that the code adhered to best practices and was of high quality. Additionally, I assisted in troubleshooting issues, conducting code reviews, and ensuring the project was progressing smoothly. I was also involved in ensuring that tasks were completed on time and collaborating with other team members to achieve project goals, all while learning from the more experienced developers around me.' },
-      { title: 'React Developer Intern', company: 'Webisitc.in', period: 'Jul 2024 - Aug 2024', description: 'As a React Intern at Webistic.in, I was responsible for developing and maintaining interactive frontend clones of various websites based on specific client requirements. This involved collaborating closely with clients to understand their vision, ensuring that the final product aligned with their needs and expectations. I focused on creating responsive designs that delivered an optimal user experience across different devices and screen sizes. Additionally, I managed multiple projects at once, effectively prioritizing tasks and meeting deadlines to ensure high-quality and timely delivery of results. This included incorporating user feedback to ensure a seamless, engaging experience for end users.' },
-    ],
-    education: [
-      { title: 'Bachelor of Science in Computer Engineering', institution: 'Universitat de Lleida - One Year ERASMUS+ Exchange Student', year: 'Aug 2024 - Aug 2025' },
-      { title: 'Bachelor of Science in Computer Science', institution: 'Modern University for Business and Science', year: '2022-2025' },
-    ],
-    certifications: [
-      { title: 'CS50X', issuer: 'Harvard University', year: 'Dec 2023' },
-    ],
-  }
+  const filteredItems = activeFilter === "all" ? allItems : allItems.filter((item) => item.type === activeFilter)
 
   useEffect(() => {
     setAnimate(true)
-  }, [activeTab])
-
-
+  }, [activeFilter])
 
   return (
     <div className="about-section">
       <div className="content">
         <h1 className="title">My Journey</h1>
-        <div className="tab-container">
-          {Object.keys(tabContent).map((tab) => (
+
+        <div className="filter-container">
+          {["all", "experience", "education", "certification"].map((filter) => (
             <button
-              key={tab}
-              className={`tab-button ${activeTab === tab ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab)}
+              key={filter}
+              className={`filter-button ${activeFilter === filter ? "active" : ""}`}
+              onClick={() => setActiveFilter(filter)}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {filter.charAt(0).toUpperCase() + filter.slice(1)}
+              {filter !== "all" && "s"}
             </button>
           ))}
         </div>
-        <div className="tab-content">
-          {tabContent[activeTab].map((item, index) => (
-            <InteractiveContainer key={index} onClick={() => handleContainerClick(item)}>
-              <div className={`timeline-item ${animate ? 'fade-in' : ''}`} style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="timeline-content">
-                  <h2 className="item-title">{item.title}</h2>
-                  <p className="item-subtitle">
-                    {activeTab === 'experiences' && `${item.company} | ${item.period}`}
-                    {activeTab === 'education' && `${item.institution} | ${item.year}`}
-                    {activeTab === 'certifications' && `${item.issuer} | ${item.year}`}
-                  </p>
-                  {activeTab === 'experiences' && <p className="item-description">{item.description}</p>}
+
+        <div className="cards-grid">
+          {filteredItems.map((item, index) => (
+            <MagneticCard key={`${item.type}-${index}`} index={index}>
+              <div className={`card ${animate ? "slide-in" : ""}`}>
+                <div className="card-header">
+                  <span className={`card-type ${item.type}`}>{item.type}</span>
+                  <h3 className="card-title">{item.title}</h3>
+                </div>
+                <div className="card-body">
+                  <p className="card-company">{item.company}</p>
+                  <p className="card-period">{item.period}</p>
+                  <p className="card-description">{item.description}</p>
                 </div>
               </div>
-            </InteractiveContainer>
+            </MagneticCard>
           ))}
         </div>
       </div>
+
       <style jsx>{`
         .about-section {
           min-height: 100vh;
@@ -100,83 +180,139 @@ export default function AboutSection() {
 
         .title {
           font-size: 3rem;
-          margin-bottom: 2rem;
           text-align: center;
           color: #ccd6f6;
+          margin-bottom: 3rem;
+          background: linear-gradient(45deg, #64ffda, #ccd6f6);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
-        .tab-container {
+        .filter-container {
           display: flex;
           justify-content: center;
-          margin-bottom: 2rem;
+          gap: 1rem;
+          margin-bottom: 3rem;
+          flex-wrap: wrap;
         }
 
-        .tab-button {
-          background-color: transparent;
-          border: none;
+        .filter-button {
+          background: transparent;
+          border: 2px solid #8892b0;
           color: #8892b0;
-          font-size: 1rem;
-          padding: 0.5rem 1rem;
-          margin: 0 0.5rem;
+          padding: 0.75rem 1.5rem;
+          border-radius: 25px;
           cursor: pointer;
           transition: all 0.3s ease;
+          font-size: 0.9rem;
+          font-weight: 500;
         }
 
-        .tab-button.active {
+        .filter-button:hover {
+          border-color: #64ffda;
           color: #64ffda;
-          border-bottom: 2px solid #64ffda;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(100, 255, 218, 0.2);
         }
 
-        .tab-content {
-          width: 100%;
-          max-width: 800px;
+        .filter-button.active {
+          background: #64ffda;
+          color: #0a192f;
+          border-color: #64ffda;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
         }
 
-        .interactive-container {
+        .cards-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+          padding: 1rem;
+        }
+
+        .magnetic-card {
+          transition: transform 0.2s ease-out;
           cursor: pointer;
-          transition: all 0.3s ease;
         }
 
-        .interactive-container.hovered {
-          transform: translateY(-5px);
-          box-shadow: 0 4px 10px rgba(100, 255, 218, 0.2);
-        }
-
-        .timeline-item {
-          opacity: 0;
-          transform: translateY(20px);
-          margin-bottom: 1.5rem;
-        }
-
-        .fade-in {
-          animation: fadeInUp 0.5s forwards;
-        }
-
-        .timeline-content {
-          background-color: rgba(100, 255, 218, 0.1);
+        .card {
+          background: rgba(100, 255, 218, 0.05);
+          border: 1px solid rgba(100, 255, 218, 0.2);
+          border-radius: 15px;
           padding: 1.5rem;
-          border-radius: 8px;
+          height: 100%;
           transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+          opacity: 0;
+          transform: translateY(30px);
         }
 
-        .item-title {
-          font-size: 1.4rem;
-          color: #64ffda;
-          margin-bottom: 0.5rem;
+        .slide-in {
+          animation: slideIn 0.6s ease-out forwards;
         }
 
-        .item-subtitle {
-          font-size: 1rem;
-          color: #ccd6f6;
+        .magnetic-card.hovered .card {
+          background: rgba(100, 255, 218, 0.1);
+          border-color: #64ffda;
+          box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+        }
+
+        .card-header {
           margin-bottom: 1rem;
         }
 
-        .item-description {
-          font-size: 0.9rem;
-          line-height: 1.6;
+        .card-type {
+          display: inline-block;
+          padding: 0.25rem 0.75rem;
+          border-radius: 15px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          margin-bottom: 0.5rem;
         }
 
-        @keyframes fadeInUp {
+        .card-type.experience {
+          background: rgba(100, 255, 218, 0.2);
+          color: #64ffda;
+        }
+
+        .card-type.education {
+          background: rgba(255, 206, 84, 0.2);
+          color: #ffce54;
+        }
+
+        .card-type.certification {
+          background: rgba(255, 107, 107, 0.2);
+          color: #ff6b6b;
+        }
+
+        .card-title {
+          font-size: 1.25rem;
+          color: #ccd6f6;
+          margin: 0.5rem 0;
+          line-height: 1.3;
+        }
+
+        .card-company {
+          color: #64ffda;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
+        }
+
+        .card-period {
+          color: #8892b0;
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+        }
+
+        .card-description {
+          color: #8892b0;
+          line-height: 1.6;
+          font-size: 0.9rem;
+        }
+
+        @keyframes slideIn {
           to {
             opacity: 1;
             transform: translateY(0);
@@ -184,25 +320,28 @@ export default function AboutSection() {
         }
 
         @media (max-width: 768px) {
+          .cards-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+          
           .title {
             font-size: 2.5rem;
           }
-
-          .tab-button {
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
+          
+          .filter-container {
+            gap: 0.5rem;
           }
-
-          .item-title {
-            font-size: 1.2rem;
-          }
-
-          .item-subtitle {
-            font-size: 0.9rem;
-          }
-
-          .item-description {
+          
+          .filter-button {
+            padding: 0.5rem 1rem;
             font-size: 0.8rem;
+          }
+        }
+
+        @media (max-width: 1200px) and (min-width: 769px) {
+          .cards-grid {
+            grid-template-columns: repeat(2, 1fr);
           }
         }
       `}</style>
