@@ -72,9 +72,14 @@ const SkillsSection = () => {
   ]
 
   const SpiderWeb = () => {
-    const centerX = 300
-    const centerY = 300
-    const maxRadius = 200
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768
+    const isTablet = typeof window !== "undefined" && window.innerWidth < 1024
+
+    const svgSize = isMobile ? 350 : isTablet ? 500 : 600
+    const centerX = svgSize / 2
+    const centerY = svgSize / 2
+    const maxRadius = isMobile ? 120 : isTablet ? 160 : 200
+    const labelOffset = isMobile ? 25 : isTablet ? 35 : 40
     const numLevels = 5
 
     // Calculate positions for each skill on the web
@@ -84,15 +89,26 @@ const SkillsSection = () => {
       return {
         x: centerX + Math.cos(angle) * radius,
         y: centerY + Math.sin(angle) * radius,
-        labelX: centerX + Math.cos(angle) * (maxRadius + 40),
-        labelY: centerY + Math.sin(angle) * (maxRadius + 40),
+        labelX: centerX + Math.cos(angle) * (maxRadius + labelOffset),
+        labelY: centerY + Math.sin(angle) * (maxRadius + labelOffset),
         angle,
       }
     }
 
     return (
-      <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <svg width="600" height="600" style={{ background: "transparent" }}>
+      <div
+        style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}
+      >
+        <svg
+          width="100%"
+          height="auto"
+          viewBox={`0 0 ${svgSize} ${svgSize}`}
+          style={{
+            background: "transparent",
+            maxWidth: `${svgSize}px`,
+            height: "auto",
+          }}
+        >
           {Array.from({ length: numLevels }, (_, i) => (
             <circle
               key={`circle-${i}`}
@@ -158,7 +174,7 @@ const SkillsSection = () => {
                 <circle
                   cx={pos.x}
                   cy={pos.y}
-                  r={isHovered ? "8" : "6"}
+                  r={isHovered ? (isMobile ? "6" : "8") : isMobile ? "4" : "6"}
                   fill={themeColors.primary}
                   stroke={themeColors.background}
                   strokeWidth="2"
@@ -180,7 +196,7 @@ const SkillsSection = () => {
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fill={isHovered ? themeColors.primary : themeColors.foreground}
-                  fontSize="16"
+                  fontSize={isMobile ? "12" : isTablet ? "14" : "16"}
                   fontWeight="600"
                   style={{
                     cursor: "pointer",
@@ -194,11 +210,11 @@ const SkillsSection = () => {
 
                 <text
                   x={pos.labelX}
-                  y={pos.labelY + 20}
+                  y={pos.labelY + (isMobile ? 15 : 20)}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fill={themeColors.primary}
-                  fontSize="14"
+                  fontSize={isMobile ? "11" : isTablet ? "12" : "14"}
                   fontWeight="700"
                   style={{
                     cursor: "pointer",
@@ -227,21 +243,22 @@ const SkillsSection = () => {
           <div
             style={{
               position: "absolute",
-              top: "20px",
-              right: "20px",
+              top: isMobile ? "10px" : "20px",
+              right: isMobile ? "10px" : "20px",
               background: themeColors.card,
               border: `1px solid ${themeColors.border}`,
-              borderRadius: "12px",
-              padding: "20px",
-              minWidth: "200px",
+              borderRadius: isMobile ? "8px" : "12px",
+              padding: isMobile ? "12px" : "20px",
+              minWidth: isMobile ? "150px" : "200px",
               boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
               backdropFilter: "blur(10px)",
+              zIndex: 10,
             }}
           >
             <h3
               style={{
                 color: themeColors.primary,
-                fontSize: "20px",
+                fontSize: isMobile ? "16px" : "20px",
                 fontWeight: "700",
                 marginBottom: "8px",
               }}
@@ -251,7 +268,7 @@ const SkillsSection = () => {
             <div
               style={{
                 color: themeColors.foreground,
-                fontSize: "24px",
+                fontSize: isMobile ? "18px" : "24px",
                 fontWeight: "600",
                 marginBottom: "8px",
               }}
@@ -261,7 +278,7 @@ const SkillsSection = () => {
             <div
               style={{
                 color: themeColors.mutedForeground,
-                fontSize: "14px",
+                fontSize: isMobile ? "11px" : "14px",
                 textTransform: "uppercase",
                 letterSpacing: "1px",
               }}
@@ -275,7 +292,7 @@ const SkillsSection = () => {
             <div
               style={{
                 color: themeColors.primary,
-                fontSize: "18px",
+                fontSize: isMobile ? "14px" : "18px",
                 marginTop: "12px",
               }}
             >
@@ -295,15 +312,20 @@ const SkillsSection = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        padding: "2rem",
+        padding: typeof window !== "undefined" && window.innerWidth < 768 ? "1rem" : "2rem",
         color: themeColors.foreground,
         position: "relative",
       }}
     >
       <h2
         style={{
-          fontSize: "3rem",
-          marginBottom: "3rem",
+          fontSize:
+            typeof window !== "undefined" && window.innerWidth < 768
+              ? "2rem"
+              : typeof window !== "undefined" && window.innerWidth < 1024
+                ? "2.5rem"
+                : "3rem",
+          marginBottom: typeof window !== "undefined" && window.innerWidth < 768 ? "2rem" : "3rem",
           color: themeColors.foreground,
           textAlign: "center",
           fontWeight: "700",
