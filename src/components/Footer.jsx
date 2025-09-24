@@ -11,7 +11,7 @@ const Footer = () => {
           <a href="https://www.linkedin.com/in/hania-seif/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <LinkedinIcon size={24} />
           </a>
-          <a href="mailto:haniacs05@gmail.com" aria-label="Email">
+          <a href="mailto:hania.seifeldeen@mubs.edu.lb" aria-label="Email">
             <MailIcon size={24} />
           </a>
           <a href="https://github.com/hania-cs" target="_blank" rel="noopener noreferrer" aria-label="GitHub">

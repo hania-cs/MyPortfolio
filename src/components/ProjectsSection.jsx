@@ -152,8 +152,8 @@ export default function ProjectsSection() {
         "Built a glitch-inspired portfolio using React, Vite, and CSS to showcase projects and experience, featuring responsive design and creative visual effects",
 
       image: "./assets/glitch.png",
-      github: "",
-      demo: "https://www.yanta-leb.com/en",
+      github: "https://github.com/hania-cs/GlitchPortfolio",
+      demo: "https://glitch-portfolio-teal.vercel.app/",
     },
     {
       title: "Manuela Freire Portfolio",

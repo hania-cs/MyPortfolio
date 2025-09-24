@@ -11,7 +11,7 @@ export default function HomeSection() {
   const containerRef = useRef(null)
   const animationRef = useRef(null)
 
-  const texts = ["Frontend Developer", "UI/UX Designer", "Web Developer"]
+  const texts = ["Frontend Developer", "WordPress Developer","UI/UX Designer"]
 
   useEffect(() => {
     const currentFullText = texts[currentIndex]
@@ -375,7 +375,7 @@ export default function HomeSection() {
               e.target.style.color = currentTheme.background
             }}
             onClick={() => {
-              window.open("haniacs05@gmail.com", "_blank")
+              window.open("mailto:hania.seifeldeen@mubs.edu.lb", "_blank")
             }}
           >
             Get In Touch

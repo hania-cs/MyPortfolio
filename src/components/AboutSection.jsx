@@ -97,7 +97,7 @@ export default function AboutSection() {
       title: "Bachelor of Science in Computer Engineering",
       company: "Universitat de Lleida",
       period: "Aug 2024 - Aug 2025",
-      description: "ERASMUS+ Exchange Student program focusing on advanced computer engineering concepts.",
+      description: "ERASMUS+ Exchange Student program in Spain focusing on advanced computer engineering concepts.",
     },
     {
       type: "education",
