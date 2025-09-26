@@ -156,6 +156,15 @@ export default function ProjectsSection() {
       demo: "https://glitch-portfolio-teal.vercel.app/",
     },
     {
+      title: "Tiramisu Choice",
+      description:
+        "Built a responsive single-page website for a tiramisu shop, built with React and Vite. Showcases products with a clean design, fast performance, and seamless deployment on Vercel.",
+
+      image: "./assets/tiramisu.png",
+      github: "https://github.com/hania-cs/TiramisuChoice",
+      demo: "https://tiramisuchoice.vercel.app/",
+    },
+    {
       title: "Manuela Freire Portfolio",
       description:
         "Created a responsive React portfolio to showcase a psychology student’s skills, research, and achievements with a clean and user-friendly design.",
