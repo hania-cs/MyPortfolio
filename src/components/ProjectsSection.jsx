@@ -142,7 +142,7 @@ export default function ProjectsSection() {
       description:
         "Designed and developed the official ConnectServices SARL website using React, creating a modern, responsive, and user-friendly platform. Focused on clean design, smooth navigation, and performance optimization to deliver a professional online presence.",
 
-      image: "./assets/connect.png",
+      image: "./assets/cone.png",
       github: "https://github.com/hania-cs/ConnectServicesSARL",
       demo: "https://www.connect-services.me/",
     },
