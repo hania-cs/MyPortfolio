@@ -146,15 +146,7 @@ export default function ProjectsSection() {
       github: "https://github.com/hania-cs/ConnectServicesSARL",
       demo: "https://www.connect-services.me/",
     },
-        {
-      title: "Arab Center for Consulting",
-      description:
-        "Developing the official Arab Center for Consulting website using WordPress, creating a modern, responsive, and easy-to-manage platform. Focused on user-friendly navigation, and seamless content management for a professional online presence.",
-
-      image: "./assets/arab.png",
-      github: "",
-      demo: "https://arabcenter.com.sa/",
-    },
+       
      {
       title: "Yanta Municipality's Website",
       description:
@@ -205,6 +197,15 @@ export default function ProjectsSection() {
       image: "./assets/jingle.png",
       github: "https://github.com/hania-cs/JingleGings",
       demo: "https://jingle-gings.vercel.app/",
+    },
+     {
+      title: "Arab Center for Consulting",
+      description:
+        "Developing the official Arab Center for Consulting website using WordPress, creating a modern, responsive, and easy-to-manage platform. Focused on user-friendly navigation, and seamless content management for a professional online presence.",
+
+      image: "./assets/arab.png",
+      github: "",
+      demo: "https://arabcenter.com.sa/",
     },
     {
       title: "BlossomBloomClinic",
