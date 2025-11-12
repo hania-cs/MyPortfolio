@@ -137,6 +137,24 @@ const ProjectCard = ({ project }) => {
 
 export default function ProjectsSection() {
   const projects = [
+    {
+      title: "ConnectServices SARL",
+      description:
+        "Designed and developed the official ConnectServices SARL website using React, creating a modern, responsive, and user-friendly platform. Focused on clean design, smooth navigation, and performance optimization to deliver a professional online presence.",
+
+      image: "./assets/connect.png",
+      github: "https://github.com/hania-cs/ConnectServicesSARL",
+      demo: "https://www.connect-services.me/",
+    },
+        {
+      title: "Arab Center for Consulting",
+      description:
+        "Developing the official Arab Center for Consulting website using WordPress, creating a modern, responsive, and easy-to-manage platform. Focused on user-friendly navigation, and seamless content management for a professional online presence.",
+
+      image: "./assets/arab.png",
+      github: "",
+      demo: "https://arabcenter.com.sa/",
+    },
      {
       title: "Yanta Municipality's Website",
       description:
