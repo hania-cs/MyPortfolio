@@ -1,17 +1,73 @@
 "use client"
+
 import { useEffect, useState, useRef, useCallback } from "react"
 
-export default function HomeSection() {
+const Homepage = () => {
   const [currentText, setCurrentText] = useState("")
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 })
   const [particles, setParticles] = useState([])
   const [showSurprise, setShowSurprise] = useState(false)
+  const [explosionParticles, setExplosionParticles] = useState([])
   const containerRef = useRef(null)
   const animationRef = useRef(null)
 
-  const texts = ["Frontend Developer", "WordPress Developer","UI/UX Designer"]
+  const texts = ["Frontend Developer", "WordPress Developer", "UI/UX Designer"]
+
+  const themeColors = {
+    background: "#0a192f",
+    text: "#ccd6f6",
+    accent: "#64ffda",
+    secondaryText: "#8892b0",
+  }
+
+  const currentTheme = themeColors
+
+  const triggerExplosion = () => {
+    setShowSurprise(true)
+
+    const colors = ["#64ffda", "#ff6b6b", "#4ecdc4", "#ffe66d", "#a8dadc", "#f1c40f", "#e74c3c", "#9b59b6"]
+    const newParticles = [...Array(30)].map((_, i) => {
+      const angle = (Math.PI * 2 * i) / 30
+      const velocity = 3 + Math.random() * 4
+      return {
+        id: i,
+        x: 0,
+        y: 0,
+        vx: Math.cos(angle) * velocity,
+        vy: Math.sin(angle) * velocity,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: 8 + Math.random() * 8,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 20,
+      }
+    })
+    setExplosionParticles(newParticles)
+
+    setTimeout(() => {
+      setExplosionParticles([])
+      setShowSurprise(false)
+    }, 2000)
+  }
+
+  useEffect(() => {
+    if (explosionParticles.length === 0) return
+
+    const interval = setInterval(() => {
+      setExplosionParticles((prev) =>
+        prev.map((p) => ({
+          ...p,
+          x: p.x + p.vx,
+          y: p.y + p.vy,
+          vy: p.vy + 0.2,
+          rotation: p.rotation + p.rotationSpeed,
+        })),
+      )
+    }, 16)
+
+    return () => clearInterval(interval)
+  }, [explosionParticles.length])
 
   useEffect(() => {
     const currentFullText = texts[currentIndex]
@@ -112,10 +168,22 @@ export default function HomeSection() {
         51%, 100% { opacity: 0; }
       }
 
-      @keyframes surpriseFloat {
-        0% { opacity: 0; transform: translateX(-50%) translateY(0px); }
-        50% { opacity: 1; transform: translateX(-50%) translateY(-20px); }
-        100% { opacity: 0; transform: translateX(-50%) translateY(-40px); }
+      @keyframes celebrationBounce {
+        0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+        25% { transform: translateX(-50%) translateY(-30px) scale(1.2); }
+        50% { transform: translateX(-50%) translateY(-15px) scale(1.1); }
+        75% { transform: translateX(-50%) translateY(-25px) scale(1.15); }
+      }
+      
+      @keyframes sparkle {
+        0% { transform: scale(0) rotate(0deg); opacity: 0; }
+        50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
+        100% { transform: scale(0) rotate(360deg); opacity: 0; }
+      }
+      
+      @keyframes buttonGlow {
+        0%, 100% { box-shadow: 0 0 20px rgba(100, 255, 218, 0.3), 0 0 40px rgba(100, 255, 218, 0.2); }
+        50% { box-shadow: 0 0 30px rgba(100, 255, 218, 0.5), 0 0 60px rgba(100, 255, 218, 0.3); }
       }
     `
     document.head.appendChild(style)
@@ -124,15 +192,6 @@ export default function HomeSection() {
       document.head.removeChild(style)
     }
   }, [])
-
-  const themeColors = {
-    background: "#0a192f",
-    text: "#ccd6f6",
-    accent: "#64ffda",
-    secondaryText: "#8892b0",
-  }
-
-  const currentTheme = themeColors
 
   return (
     <div
@@ -275,43 +334,108 @@ export default function HomeSection() {
             marginBottom: "2rem",
           }}
         >
-          <div
+          <button
+            onClick={triggerExplosion}
             style={{
-              padding: "0.5rem 1rem",
-              backgroundColor: `${currentTheme.accent}20`,
-              border: `1px solid ${currentTheme.accent}40`,
-              borderRadius: "20px",
-              color: currentTheme.accent,
-              fontSize: "0.9rem",
+              background: `linear-gradient(135deg, ${currentTheme.accent}, #4ecdc4)`,
+              border: "none",
+              borderRadius: "50px",
+              padding: "1rem 2.5rem",
+              fontSize: "1.1rem",
+              fontWeight: "700",
+              color: currentTheme.background,
               cursor: "pointer",
-              animation: "pulse 2s infinite",
+              position: "relative",
+              overflow: "visible",
               transition: "all 0.3s ease",
+              animation: "buttonGlow 2s infinite",
+              boxShadow: `0 0 20px ${currentTheme.accent}50`,
+              textTransform: "uppercase",
+              letterSpacing: "1px",
             }}
-            onClick={() => setShowSurprise(!showSurprise)}
             onMouseEnter={(e) => {
-              e.target.style.backgroundColor = `${currentTheme.accent}40`
+              e.currentTarget.style.transform = "scale(1.05)"
             }}
             onMouseLeave={(e) => {
-              e.target.style.backgroundColor = `${currentTheme.accent}20`
+              e.currentTarget.style.transform = "scale(1)"
             }}
           >
             ✨ Click for a surprise! ✨
-          </div>
+          </button>
 
-          {showSurprise && (
+          {explosionParticles.map((particle) => (
             <div
+              key={particle.id}
               style={{
                 position: "absolute",
-                top: "-40px",
                 left: "50%",
-                transform: "translateX(-50%)",
-                animation: "surpriseFloat 2s ease-out",
-                fontSize: "2rem",
+                top: "50%",
+                width: `${particle.size}px`,
+                height: `${particle.size}px`,
+                backgroundColor: particle.color,
+                borderRadius: "50%",
+                transform: `translate(${particle.x}px, ${particle.y}px) rotate(${particle.rotation}deg)`,
                 pointerEvents: "none",
+                boxShadow: `0 0 10px ${particle.color}`,
+                zIndex: 1000,
               }}
-            >
-              🎉🚀💫
-            </div>
+            />
+          ))}
+
+          {showSurprise && (
+            <>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "-80px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  animation: "celebrationBounce 0.6s ease-out",
+                  fontSize: "3rem",
+                  pointerEvents: "none",
+                  textShadow: "0 0 20px rgba(100, 255, 218, 0.8)",
+                  zIndex: 10,
+                }}
+              >
+                🎉
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "-120px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  animation: "celebrationBounce 0.6s ease-out 0.1s both",
+                  fontSize: "2rem",
+                  fontWeight: "700",
+                  color: currentTheme.accent,
+                  pointerEvents: "none",
+                  whiteSpace: "nowrap",
+                  textShadow: `0 0 20px ${currentTheme.accent}80`,
+                }}
+              >
+                ✨ Hello! ✨
+              </div>
+              {[...Array(8)].map((_, i) => {
+                const angle = (i / 8) * Math.PI * 2
+                const distance = 60
+                return (
+                  <div
+                    key={`sparkle-${i}`}
+                    style={{
+                      position: "absolute",
+                      top: `calc(50% + ${Math.sin(angle) * distance}px)`,
+                      left: `calc(50% + ${Math.cos(angle) * distance}px)`,
+                      fontSize: "1.5rem",
+                      animation: `sparkle 1s ease-in-out ${i * 0.1}s`,
+                      pointerEvents: "none",
+                    }}
+                  >
+                    ⭐
+                  </div>
+                )
+              })}
+            </>
           )}
         </div>
 
@@ -385,3 +509,5 @@ export default function HomeSection() {
     </div>
   )
 }
+
+export default Homepage
